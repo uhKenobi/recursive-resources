@@ -24,7 +24,7 @@ public class ResourcePackListProcessor {
         String pfx2 = !reverse ? "b" : "y";
         String pfx3 = !reverse ? "x" : "a";
 
-        if (entry instanceof FolderedPackListWidget.FoldererResourcePackEntry folder) {
+        if (entry instanceof FolderedPackListWidget.FolderedResourcePackEntry folder) {
             return (folder.isUp ? pfx1 : pfx2) + name(folder); // sort folders first
         } else {
             return pfx3 + name(entry);
@@ -99,6 +99,6 @@ public class ResourcePackListProcessor {
     }
 
     private boolean checkFilter(String entryText) {
-        return textFilter == null || entryText.equals(FolderedPackListWidget.FoldererResourcePackEntry.UP_TEXT) || textFilter.matcher(entryText.toLowerCase(Locale.ENGLISH)).find();
+        return textFilter == null || entryText.equals(FolderedPackListWidget.FolderedResourcePackEntry.UP_TEXT) || textFilter.matcher(entryText.toLowerCase(Locale.ENGLISH)).find();
     }
 }

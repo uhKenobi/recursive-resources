@@ -120,7 +120,7 @@ public record FolderMeta(Path icon, String description, List<Path> packs, boolea
             if (packIndex != -1) return packIndex;
         }
 
-        if (entry instanceof FolderedPackListWidget.FoldererResourcePackEntry) return Integer.MIN_VALUE;
+        if (entry instanceof FolderedPackListWidget.FolderedResourcePackEntry) return Integer.MIN_VALUE;
 
         return Integer.MAX_VALUE;
     }

@@ -214,7 +214,7 @@ public class FolderedPackScreen extends PackScreen {
         if (folderView) {
             var filteredPacks = customAvailablePacks.children.stream().filter(entry -> {
                 // if it's a folder, it's already relative, so we can check easily
-                if (entry instanceof FolderedPackListWidget.FoldererResourcePackEntry folder) {
+                if (entry instanceof FolderedPackListWidget.FolderedResourcePackEntry folder) {
                     return folder.isUp || currentFolder.equals(getParentFileSafe(folder.folder));
                 }
                 

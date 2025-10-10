@@ -91,11 +91,11 @@ public class FolderedPackListWidget extends PackListWidget {
         super.clearEntries();
     }
     
-    public FoldererResourcePackEntry createEntry(MinecraftClient client, FolderedPackScreen ownerScreen, Path folder, @Nullable Path rootFolder, boolean isUp, FolderMeta meta) {
-        return new FoldererResourcePackEntry(client, ownerScreen.availablePackList, ownerScreen.selectedPackList, ownerScreen, folder, rootFolder, isUp, meta);
+    public FolderedResourcePackEntry createEntry(MinecraftClient client, FolderedPackScreen ownerScreen, Path folder, @Nullable Path rootFolder, boolean isUp, FolderMeta meta) {
+        return new FolderedResourcePackEntry(client, ownerScreen.availablePackList, ownerScreen.selectedPackList, ownerScreen, folder, rootFolder, isUp, meta);
     }
     
-    public class FoldererResourcePackEntry extends PackListWidget.ResourcePackEntry {
+    public class FolderedResourcePackEntry extends PackListWidget.ResourcePackEntry {
         public static final Identifier WIDGETS_TEXTURE = RecursiveResources.id("textures/gui/widgets.png");
         public static final String UP_TEXT = "..";
         
@@ -130,7 +130,7 @@ public class FolderedPackListWidget extends PackListWidget {
             };
         }
         
-        public FoldererResourcePackEntry(MinecraftClient client, PackListWidget availablePacks, PackListWidget selectedList, FolderedPackScreen ownerScreen, Path folder, @Nullable Path rootFolder, boolean isUp, FolderMeta meta) {
+        public FolderedResourcePackEntry(MinecraftClient client, PackListWidget availablePacks, PackListWidget selectedList, FolderedPackScreen ownerScreen, Path folder, @Nullable Path rootFolder, boolean isUp, FolderMeta meta) {
             super(
                 client, availablePacks,
                 new FolderPack(
@@ -207,8 +207,8 @@ public class FolderedPackListWidget extends PackListWidget {
         
         private List<ResourcePackEntry> resolveChildren() {
             return widget.children().stream()
-                .filter(entry -> !(entry instanceof FoldererResourcePackEntry)
-                    && entry instanceof ResourcePackEntry packEntry && meta.containsEntry(packEntry, folder))
+                .filter(entry -> entry instanceof ResourcePackEntry packEntry
+                    && !(packEntry instanceof FolderedResourcePackEntry) && meta.containsEntry(packEntry, folder))
                 .sorted(Comparator.comparingInt(entry -> meta.sortEntry((ResourcePackEntry) entry, folder)).reversed())
                 .map(entry -> (ResourcePackEntry)entry)
                 .toList();
