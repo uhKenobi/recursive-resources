@@ -1,4 +1,4 @@
-package nl.enjarai.recursiveresources.mixin;
+package nl.enjarai.recursiveresources.mixin.skip_spam_log;
 
 import net.minecraft.resource.FileResourcePackProvider;
 import org.slf4j.Logger;

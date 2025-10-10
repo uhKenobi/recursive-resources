@@ -3,15 +3,14 @@
   "package": "nl.enjarai.recursiveresources.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "FileResourcePackProviderMixin",
     "OverlayResourcePackAccessor",
     "ZipFileWrapperAccessor",
-    "ZipResourcePackAccessor"
+    "ZipResourcePackAccessor",
+    "skip_spam_log.AbstractFileResourcePackMixin",
+    "skip_spam_log.FileResourcePackProviderMixin"
   ],
   "client": [
-    "EntryListWidgetMixin",
     "OptionsScreenMixin",
-    "PackListWidgetMixin",
     "ResourcePackManagerMixin"
   ],
   "injectors": {

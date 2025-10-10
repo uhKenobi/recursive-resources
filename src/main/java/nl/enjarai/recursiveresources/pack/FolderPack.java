@@ -9,7 +9,6 @@ import net.minecraft.resource.ResourcePackSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import nl.enjarai.recursiveresources.RecursiveResources;
-import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.InputStream;
@@ -44,14 +43,14 @@ public class FolderPack implements ResourcePackOrganizer.Pack {
     private final Text displayName;
     private final Text description;
     @Nullable
-    private Identifier icon = null;
+    private final Identifier icon;
     private final FolderMeta meta;
 
     private boolean hovered = false;
 
     public FolderPack(Text displayName, Text description, Function<Path, Path> iconFileResolver, Path relativeFolder, FolderMeta meta) {
         this.displayName = displayName;
-        if (meta.description().equals("")) {
+        if (meta.description().isEmpty()) {
             this.description = description;
         } else {
             this.description = Text.of(meta.description());

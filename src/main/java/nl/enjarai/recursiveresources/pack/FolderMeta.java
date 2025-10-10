@@ -10,7 +10,7 @@ import net.minecraft.client.gui.screen.pack.PackListWidget;
 import net.minecraft.client.gui.screen.pack.ResourcePackOrganizer;
 import net.minecraft.resource.ResourcePackSource;
 import nl.enjarai.recursiveresources.RecursiveResources;
-import nl.enjarai.recursiveresources.gui.ResourcePackFolderEntry;
+import nl.enjarai.recursiveresources.gui.FolderedPackListWidget;
 import nl.enjarai.recursiveresources.util.ResourcePackUtils;
 
 import java.nio.file.Files;
@@ -54,10 +54,10 @@ public record FolderMeta(Path icon, String description, List<Path> packs, boolea
                 if (!meta.errored()) {
                     try (Stream<Path> packs = Files.list(rootedFolder)) {
                         meta = meta.getRefreshed(packs
-                                .filter(ResourcePackUtils::isPack)
-                                .map(Path::normalize)
-                                .map(rootedFolder::relativize)
-                                .toList()
+                            .filter(ResourcePackUtils::isPack)
+                            .map(Path::normalize)
+                            .map(rootedFolder::relativize)
+                            .toList()
                         );
                         meta.save(metaFile);
                     } catch (Exception e) {
@@ -120,7 +120,7 @@ public record FolderMeta(Path icon, String description, List<Path> packs, boolea
             if (packIndex != -1) return packIndex;
         }
 
-        if (entry instanceof ResourcePackFolderEntry) return Integer.MIN_VALUE;
+        if (entry instanceof FolderedPackListWidget.FoldererResourcePackEntry) return Integer.MIN_VALUE;
 
         return Integer.MAX_VALUE;
     }

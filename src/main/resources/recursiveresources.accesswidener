@@ -10,10 +10,11 @@ accessible  field    net/minecraft/client/gui/screen/Screen    children    Ljava
 
 accessible  field    net/minecraft/client/gui/screen/pack/PackScreen    layout    Lnet/minecraft/client/gui/widget/ThreePartsLayoutWidget;
 
-accessible  method   net/minecraft/client/gui/screen/pack/PackScreen    updatePackLists    ()V
-extendable  method   net/minecraft/client/gui/screen/pack/PackScreen    updatePackLists    ()V
-
+extendable  method net/minecraft/client/gui/screen/pack/PackScreen updatePackLists (Lnet/minecraft/client/gui/screen/pack/ResourcePackOrganizer$AbstractPack;)V
+accessible  field net/minecraft/client/gui/screen/pack/PackScreen searchBox Lnet/minecraft/client/gui/widget/TextFieldWidget;
 accessible  method   net/minecraft/client/gui/screen/pack/PackScreen    refresh    ()V
+
+accessible  field net/minecraft/client/gui/widget/EntryListWidget children Ljava/util/List;
 
 accessible  field    net/minecraft/client/gui/screen/pack/PackListWidget    title    Lnet/minecraft/text/Text;
 

@@ -1,8 +1,8 @@
 plugins {
-    id 'fabric-loom' version '1.10-SNAPSHOT'
+    id 'fabric-loom' version '1.11-SNAPSHOT'
     id 'maven-publish'
     id 'me.fallenbreath.yamlang' version '1.4.1'
-    id "me.modmuss50.mod-publish-plugin" version "0.8.1"
+    id "me.modmuss50.mod-publish-plugin" version "1.0.0"
 }
 
 sourceCompatibility = JavaVersion.VERSION_21
