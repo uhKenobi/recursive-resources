@@ -1,6 +1,7 @@
 package nl.enjarai.recursiveresources.util;
 
 import net.fabricmc.fabric.impl.resource.loader.ModNioResourcePack;
+import net.fabricmc.fabric.impl.resource.loader.PlaceholderResourcePack;
 import net.minecraft.resource.DirectoryResourcePack;
 import net.minecraft.resource.OverlayResourcePack;
 import net.minecraft.resource.ResourcePack;
@@ -55,7 +56,9 @@ public class ResourcePackUtils {
                 case OverlayResourcePack overlayResourcePack ->
                     determinePackFolder(((OverlayResourcePackAccessor) overlayResourcePack).getOverlaysAndBase().getFirst());
                 default -> {
-                    RecursiveResources.LOGGER.warn("Failed to determine source folder for pack: " + pack.getId() + ", unknown pack type: " + pack.getClass().getName());
+                    if (!(pack instanceof PlaceholderResourcePack)) {
+                        RecursiveResources.LOGGER.warn("Failed to determine source folder for pack: " + pack.getId() + ", unknown pack type: " + pack.getClass().getName());
+                    }
                     yield null;
                 }
             };

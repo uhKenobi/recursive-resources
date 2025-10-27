@@ -107,10 +107,10 @@ public class FolderedPackScreen extends PackScreen {
             selectedPackList.getWidth(), selectedPackList.getHeight(), selectedPackList.title));
         // Also make the selected packs title clickable to unload them
         customSelectedPacks.setCustomHeader(SELECTED_PACKS_TITLE_HOVER, null, () -> {
-            for (PackListWidget.Entry entry : customSelectedPacks.children()) {
-                if (entry instanceof ResourcePackEntry entry1) {
-                    if ((this.currentFolderMeta.containsEntry(entry1, this.currentFolder) || currentFolder.equals(ROOT_FOLDER)) && entry1.pack.canBeDisabled()) {
-                        entry1.pack.disable();
+            for (PackListWidget.Entry entry : Lists.reverse(List.copyOf(customSelectedPacks.children()))) {
+                if (entry instanceof ResourcePackEntry packEntry) {
+                    if ((this.currentFolderMeta.containsEntry(packEntry, this.currentFolder) || currentFolder.equals(ROOT_FOLDER)) && packEntry.pack.canBeDisabled()) {
+                        packEntry.pack.disable();
                     }
                 }
             }
