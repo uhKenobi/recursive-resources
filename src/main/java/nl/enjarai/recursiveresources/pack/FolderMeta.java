@@ -27,9 +27,8 @@ public record FolderMeta(Path icon, String description, List<Path> packs, boolea
     public static final Codec<FolderMeta> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.STRING.xmap(Path::of, Path::toString).fieldOf("icon").forGetter(FolderMeta::icon),
             Codec.STRING.fieldOf("description").forGetter(FolderMeta::description),
-            Codec.STRING.xmap(Path::of, Path::toString).listOf().fieldOf("packs").forGetter(FolderMeta::packs), // TODO only add packs that arent in any other meta automatically
-            Codec.BOOL.fieldOf("hidden").forGetter(FolderMeta::hidden)
-    ).apply(instance, FolderMeta::new));
+            Codec.STRING.xmap(Path::of, Path::toString).listOf().fieldOf("packs").forGetter(FolderMeta::packs),
+            Codec.BOOL.fieldOf("hidden").forGetter(FolderMeta::hidden)).apply(instance, FolderMeta::new));
 
     public static final FolderMeta DEFAULT = new FolderMeta(Path.of("icon.png"), "", List.of(), false);
     public static final FolderMeta ERRORED = new FolderMeta(Path.of("icon.png"), "", List.of(), false, true);
@@ -53,13 +52,15 @@ public record FolderMeta(Path icon, String description, List<Path> packs, boolea
 
                 if (!meta.errored()) {
                     try (Stream<Path> packs = Files.list(rootedFolder)) {
-                        meta = meta.getRefreshed(packs
-                            .filter(ResourcePackUtils::isPack)
-                            .map(Path::normalize)
-                            .map(rootedFolder::relativize)
-                            .toList()
-                        );
-                        meta.save(metaFile);
+                        var newMeta = meta.getRefreshed(packs
+                                .filter(ResourcePackUtils::isPack)
+                                .map(Path::normalize)
+                                .map(rootedFolder::relativize)
+                                .toList());
+                        if (!newMeta.equals(meta)) {
+                            newMeta.save(metaFile);
+                        }
+                        meta = newMeta;
                     } catch (Exception e) {
                         RecursiveResources.LOGGER.error("Failed to process meta file for folder " + folder, e);
                     }
